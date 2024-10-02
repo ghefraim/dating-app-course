@@ -1,15 +1,12 @@
+using API.Controllers;
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace API.Controller
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class UsersController : ControllerBase
+  public class UsersController : BaseApiController
   {
     private readonly DataContext _context;
 
