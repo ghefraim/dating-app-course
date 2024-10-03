@@ -5,6 +5,7 @@ import { NavComponent } from './nav/nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccountService } from './_services/account.service';
 import { HomeComponent } from './home/home.component';
+import { SharedModule } from './_modules/shared.module';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { HomeComponent } from './home/home.component';
     RouterOutlet,
     CommonModule,
     NavComponent,
-    BsDropdownModule,
+    SharedModule,
     HomeComponent,
   ],
   templateUrl: './app.component.html',
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
   }
 
   setCurrentUser() {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage.getItem('user') as string);
     this.accountService.setCurrentUser(user);
   }
 }
