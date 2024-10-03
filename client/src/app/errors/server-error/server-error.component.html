@@ -1,0 +1,17 @@
+<h4>Internal server error - refreshing the page will make the error disappear</h4>
+@if (error){
+  <ng-container >
+    <h5 class="text-danger">Error: {{error.message}}</h5>
+    <p class="font-weight-bold">Note: If you're seeing this, the front-end is not to blame</p>
+    <p>What to do next?</p>
+    <ul>
+      <li>Refresh the page</li>
+      <li>Check the server logs</li>
+      <li>Check the network tab in the browser's developer tools</li>
+    </ul>
+    @if (error.details){
+      <code  class="mt-5">Stack trace: {{error.details}}</code>
+    }
+  </ng-container>
+
+}

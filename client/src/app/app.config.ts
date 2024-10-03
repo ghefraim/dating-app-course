@@ -12,6 +12,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { errorInterceptor } from './_interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
       preventDuplicates: false,
     }),
+    provideHttpClient(withInterceptors([errorInterceptor])),
   ],
 };
