@@ -13,6 +13,7 @@ import {
 } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { errorInterceptor } from './_interceptors/error.interceptor';
+import { jwtInterceptor } from './_interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
       preventDuplicates: false,
     }),
-    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideHttpClient(withInterceptors([errorInterceptor, jwtInterceptor])),
   ],
 };
