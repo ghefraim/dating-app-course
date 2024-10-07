@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.Controllers;
 using API.Data;
 using API.DTOs;
@@ -50,34 +51,23 @@ namespace API.Controller
     //   return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
     // }
 
-    // [HttpPut("{id}")]
-    // public async Task<ActionResult<AppUser>> PutUser(int id, AppUser user)
-    // {
-    //   if (id != user.Id)
-    //   {
-    //     return BadRequest();
-    //   }
+    [HttpPut]
+    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+    {
+      string? username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      AppUser user = await _userRepository.GetUserByUsernameAsync(username);
 
-    //   _userRepository.Entry(user).State = EntityState.Modified;
+      _mapper.Map(memberUpdateDto, user);
 
-    //   try
-    //   {
-    //     await _userRepository.SaveChangesAsync();
-    //   }
-    //   catch (DbUpdateConcurrencyException)
-    //   {
-    //     if (!_userRepository.Users.Any(e => e.Id == id))
-    //     {
-    //       return NotFound();
-    //     }
-    //     else
-    //     {
-    //       throw;
-    //     }
-    //   }
+      _userRepository.Update(user);
 
-    //   return NoContent();
-    // }
+      if (await _userRepository.SaveAllAsync())
+      {
+        return NoContent();
+      }
+
+      return BadRequest("Failed to update user");
+    }
 
     // [HttpDelete("{id}")]
     // public async Task<ActionResult<AppUser>> DeleteUser(int id)
