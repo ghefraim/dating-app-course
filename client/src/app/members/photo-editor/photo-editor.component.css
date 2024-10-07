@@ -1,0 +1,13 @@
+img.img-thumbnail {
+  max-width: 100px;
+  max-height: 100px !important;
+  margin-bottom: 2px;
+}
+
+.nv-file-over {
+  border: 5px dashed #5a10d1;
+}
+
+input[type="file"] {
+  color: transparent;
+}

@@ -8,11 +8,12 @@ import { SharedModule } from '../../_modules/shared.module';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PhotoEditorComponent } from '../photo-editor/photo-editor.component';
 
 @Component({
   selector: 'app-member-edit',
   standalone: true,
-  imports: [SharedModule, NgxGalleryModule, FormsModule],
+  imports: [SharedModule, NgxGalleryModule, FormsModule, PhotoEditorComponent],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css',
 })
