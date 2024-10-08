@@ -1,14 +1,90 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm!" (ngSubmit)="registerForm?.valid && register()" autocomplete="off">
   <h2 class="text-center text-primary">Sign up</h2>
-  <hr>
-  <div class="form-group mb-2">
-    <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="model.username" required>
-  </div>
+  <hr />
+
   <div class="form-group">
-    <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="model.password" required>
+    <label class="control-label">I am a: </label>
+    <label class="form-check form-check-inline mx-3">
+      <input
+        class="form-check-input"
+        type="radio"
+        value="male"
+        formControlName="gender"
+      />
+      Male
+    </label>
+    <label class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="radio"
+        value="female"
+        formControlName="gender"
+      />
+      Female
+    </label>
   </div>
+  <app-text-input
+    [label]="'Username'"
+    [formControl]="$any(registerForm).controls['username']"
+  ></app-text-input>
+
+  <app-text-input
+    [label]="'Known as'"
+    [formControl]="$any(registerForm).controls['knownAs']"
+  ></app-text-input>
+
+  <app-date-input
+    [label]="'Date of birth'"
+    [formControl]="$any(registerForm).controls['dateOfBirth']"
+    [maxDate]="maxDate"
+  ></app-date-input>
+
+  <app-text-input
+    [label]="'City'"
+    [formControl]="$any(registerForm).controls['city']"
+  ></app-text-input>
+
+  <app-text-input
+    [label]="'Country'"
+    [formControl]="$any(registerForm).controls['country']"
+  ></app-text-input>
+
+  <app-text-input
+    [label]="'Password'"
+    [formControl]="$any(registerForm).controls['password']"
+    [type]="'password'"
+  ></app-text-input>
+
+  <app-text-input
+    [label]="'Confirm Password'"
+    [formControl]="$any(registerForm).controls['confirmPassword']"
+    [type]="'password'"
+  ></app-text-input>
+
+  @if (validationErrors.length > 0) {
+    <div class="row mt-5">
+      <ul class="text-danger">
+        @for (error of validationErrors; track error) {
+          <li>{{ error }}</li>
+        }
+      </ul>
+    </div>
+  }
+
   <div class="form-group text-center">
-    <button class="btn btn-primary m-2" type="submit">Register</button>
-    <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+    <button [disabled]="!registerForm?.valid" class="btn btn-primary m-2" type="submit">Register</button>
+    <button class="btn btn-secondary" type="button" (click)="cancel()">
+      Cancel
+    </button>
   </div>
 </form>
+
+<p>
+  Form Value:
+  {{ registerForm!.value | json }}
+</p>
+
+<p>
+  Form status:
+  {{ registerForm!.status | json }}
+</p>

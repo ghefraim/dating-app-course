@@ -6,6 +6,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccountService } from './_services/account.service';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './_modules/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { SharedModule } from './_modules/shared.module';
     NavComponent,
     SharedModule,
     HomeComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

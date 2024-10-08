@@ -5,6 +5,7 @@ namespace API.Entities
   public class AppUser
   {
     public int Id { get; set; }
+
     public string UserName { get; set; }
 
     public byte[] PasswordHash { get; set; }
@@ -21,11 +22,11 @@ namespace API.Entities
 
     public string Gender { get; set; }
 
-    public string Introduction { get; set; }
+    public string? Introduction { get; set; }
 
-    public string LookingFor { get; set; }
+    public string? LookingFor { get; set; }
 
-    public string Interests { get; set; }
+    public string? Interests { get; set; }
 
     public string City { get; set; }
 

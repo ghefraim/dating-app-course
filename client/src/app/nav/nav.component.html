@@ -21,7 +21,7 @@
       </ul>
 
       <div class="btn-group" style="display: flex; align-items: center;" dropdown *ngIf="(accountService.currentUser$ | async) as user">
-        <img src="{{user.photoUrl}}" class="rounded-circle mx-2" width="40" height="40" alt="{{user.username}}">
+        <img src="{{user.photoUrl || './assets/user.png'}}" class="rounded-circle mx-2" width="40" height="40" alt="{{user.username}}">
         <a href id="basic-link" dropdownToggle (click)="false"
         aria-controls="basic-link-dropdown">Welcome {{user.username}}</a>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu mt-3"
