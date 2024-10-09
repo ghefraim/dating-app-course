@@ -51,7 +51,6 @@ export class MemberDetailComponent {
   }
 
   getImages(): NgxGalleryImage[] {
-    console.log(this.member);
     return this.member!.photos?.map((photo) => ({
       small: photo?.url,
       medium: photo?.url,
