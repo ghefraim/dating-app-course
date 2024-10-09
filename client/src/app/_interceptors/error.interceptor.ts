@@ -31,8 +31,10 @@ export const errorInterceptor: HttpInterceptorFn = (
               }
               console.log(modalStateErrors.flat());
               throw modalStateErrors.flat();
-            } else {
+            } else if (typeof error.error === 'object') {
               toastr.error('Bad request', error.status);
+            } else {
+              toastr.error(error.error, error.status);
             }
             break;
           case 401:
