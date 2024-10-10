@@ -9,6 +9,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { TimeagoModule } from 'ngx-timeago';
     FormsModule,
     ButtonsModule,
     TimeagoModule,
+    RouterModule,
   ],
   exports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { TimeagoModule } from 'ngx-timeago';
     FormsModule,
     ButtonsModule,
     TimeagoModule,
+    RouterModule,
   ],
 })
 export class SharedModule {}
