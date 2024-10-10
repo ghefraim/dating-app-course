@@ -7,6 +7,7 @@ import { AccountService } from './_services/account.service';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './_modules/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     HomeComponent,
     ReactiveFormsModule,
+    HasRoleDirective,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

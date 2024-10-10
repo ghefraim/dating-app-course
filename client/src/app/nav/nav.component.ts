@@ -5,12 +5,19 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { SharedModule } from '../_modules/shared.module';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule, FormsModule, BsDropdownModule, RouterModule],
+  imports: [
+    SharedModule,
+    CommonModule,
+    FormsModule,
+    BsDropdownModule,
+    RouterModule,
+  ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
