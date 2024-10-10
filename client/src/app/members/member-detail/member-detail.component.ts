@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, AfterViewInit } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MembersService } from '../../_services/members.service';
 import { ActivatedRoute } from '@angular/router';
@@ -21,10 +21,8 @@ import { Message } from '../../_models/message';
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.css',
 })
-export class MemberDetailComponent {
-  @ViewChild('memberTabs', { static: true }) memberTabs:
-    | TabsetComponent
-    | undefined;
+export class MemberDetailComponent implements AfterViewInit {
+  @ViewChild('memberTabs') memberTabs?: TabsetComponent;
 
   member: Member | undefined;
   messages: Message[] = [];
@@ -44,7 +42,7 @@ export class MemberDetailComponent {
     });
 
     this.route.queryParams.subscribe((params) => {
-      params['tab'] ? this.selectTab(params['tab']) : this.selectTab(0);
+      params['tab'] && this.member ? this.selectTab(params['tab']) : null;
     });
 
     this.galleryOptions = [
@@ -59,6 +57,14 @@ export class MemberDetailComponent {
     ];
 
     this.galleryImages = this.getImages();
+  }
+
+  ngAfterViewInit() {
+    if (this.member) {
+      this.route.queryParams.subscribe((params) => {
+        params['tab'] ? this.selectTab(params['tab']) : this.selectTab(0);
+      });
+    }
   }
 
   loadMember() {
@@ -86,8 +92,13 @@ export class MemberDetailComponent {
   }
 
   selectTab(tabId: number) {
-    console.log(this.memberTabs); //TODO: Known bug: this is undefined
-    this.memberTabs!.tabs[tabId].active = true;
+    if (
+      this.memberTabs &&
+      this.memberTabs.tabs &&
+      this.memberTabs.tabs[tabId]
+    ) {
+      this.memberTabs.tabs[tabId].active = true;
+    }
   }
 
   loadMessages() {
