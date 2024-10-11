@@ -7,7 +7,7 @@ import { User } from '../_models/user';
   providedIn: 'root',
 })
 export class AdminService {
-  baseUrl = environment.baseUrl;
+  baseUrl = environment.baseApiUrl;
 
   constructor(private http: HttpClient) {}
 

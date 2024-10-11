@@ -1,7 +1,7 @@
 import { Component, inject, ViewChild, AfterViewInit } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MembersService } from '../../_services/members.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedModule } from '../../_modules/shared.module';
 import {
   NgxGalleryAnimation,
@@ -13,6 +13,10 @@ import { MemberMessagesComponent } from '../member-messages/member-messages.comp
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { MessageService } from '../../_services/message.service';
 import { Message } from '../../_models/message';
+import { PresenceService } from '../../_services/presence.service';
+import { AccountService } from '../../_services/account.service';
+import { User } from '../../_models/user';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-member-detail',
@@ -26,6 +30,7 @@ export class MemberDetailComponent implements AfterViewInit {
 
   member: Member | undefined;
   messages: Message[] = [];
+  user?: User;
 
   galleryOptions: NgxGalleryOptions[] | undefined;
   galleryImages: NgxGalleryImage[] | undefined;
@@ -35,6 +40,16 @@ export class MemberDetailComponent implements AfterViewInit {
   memberService = inject(MembersService);
   messageService = inject(MessageService);
   route = inject(ActivatedRoute);
+  presence = inject(PresenceService);
+  accountService = inject(AccountService);
+  router = inject(Router);
+
+  constructor() {
+    this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
+      this.user = user!;
+    });
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
@@ -87,7 +102,12 @@ export class MemberDetailComponent implements AfterViewInit {
     this.activeTab = data;
 
     if (this.activeTab?.heading === 'Messages' && this.messages.length === 0) {
-      this.loadMessages();
+      this.messageService.createHubConnection(
+        this.user!,
+        this.member?.username!
+      );
+    } else {
+      this.messageService.stopHubConnection();
     }
   }
 
@@ -107,5 +127,9 @@ export class MemberDetailComponent implements AfterViewInit {
       .subscribe((messages) => {
         this.messages = messages;
       });
+  }
+
+  ngOnDestroy() {
+    this.messageService.stopHubConnection();
   }
 }

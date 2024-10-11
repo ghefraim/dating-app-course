@@ -2,6 +2,8 @@ using API.Data;
 using API.Entities;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
+using API.SingalR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices(configuration);
 builder.Services.AddControllers();
 builder.Services.AddCors();
+builder.Services.AddSignalR();
 builder.Services.AddIdentityServices(configuration);
 
 // Add Bearer authorization option in Swagger
@@ -105,12 +108,15 @@ app.MapGet("/weatherforecast", () =>
 app.UseCors(policy => policy
     .AllowAnyHeader()
     .AllowAnyMethod()
+    .AllowCredentials()
     .WithOrigins("http://localhost:4200"));
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 
 app.Run();
 

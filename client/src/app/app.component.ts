@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from './_modules/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HasRoleDirective } from './_directives/has-role.directive';
+import { PresenceService } from './_services/presence.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,10 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 export class AppComponent implements OnInit {
   title = 'The dating app';
   users: any;
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private presence: PresenceService
+  ) {}
 
   ngOnInit(): void {
     this.setCurrentUser();
@@ -35,6 +39,9 @@ export class AppComponent implements OnInit {
 
   setCurrentUser() {
     const user = JSON.parse(localStorage.getItem('user') as string);
-    this.accountService.setCurrentUser(user);
+    if (user) {
+      this.accountService.setCurrentUser(user);
+      this.presence.createHubConnection(user);
+    }
   }
 }

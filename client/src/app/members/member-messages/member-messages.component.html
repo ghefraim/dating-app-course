@@ -1,30 +1,31 @@
 <div class="card">
   <div class="card-body">
-    @if (messages.length === 0) {
+    @if ((messageService.messageThread$ | async)) { @if
+    ((messageService.messageThread$ | async)!.length === 0) {
     <p>No messages yet... say hi by using the message box below</p>
-    } @else if (messages.length > 0 ){
+    } @else if ((messageService.messageThread$ | async)!.length > 0 ){
     <ul class="chat">
-      @for (message of messages; track $index) {
+      @for (message of (messageService.messageThread$ | async); track $index) {
       <li>
-        <div style="display: flex; justify-items: center; align-items: center;">
+        <div style="display: flex; justify-items: center; align-items: center">
           <span class="chat-img float-right">
             <img
               src="{{ message.senderPhotoUrl || './assets/usre.png' }}"
               alt="{{ message.senderUsername }}"
               class="rounded-circle"
-              style="margin-right: 10px;"
+              style="margin-right: 10px"
             />
           </span>
           <div class="chat-body">
             <div class="header">
               <small class="">
-                <span class=""  style="color: rgba(255, 255, 255, 0.318);">{{
-                  message.messageSent | date: 'hh:mm a'
+                <span class="" style="color: rgba(255, 255, 255, 0.318)">{{
+                  message.messageSent | date : "hh:mm a"
                 }}</span>
                 @if(!message.dateRead && message.senderUsername !== username) {
-                <span style="color: #dbc54a9c;"> (undread) </span>
+                <span style="color: #dbc54a9c"> (undread) </span>
                 } @if(message.dateRead && message.senderUsername !== username) {
-                <span style="color: rgba(255, 255, 255, 0.318);">
+                <span style="color: rgba(255, 255, 255, 0.318)">
                   (read {{ message.dateRead | timeago }})
                 </span>
                 }
@@ -36,7 +37,7 @@
       </li>
       }
     </ul>
-    }
+    } }
   </div>
 
   <div class="card-footer">
@@ -51,7 +52,13 @@
           [(ngModel)]="messageContent"
         />
         <div class="input-group-append">
-          <button [disabled]="!messageForm.valid" class="btn btn-primary" type="submit">Send</button>
+          <button
+            [disabled]="!messageForm.valid"
+            class="btn btn-primary"
+            type="submit"
+          >
+            Send
+          </button>
         </div>
       </div>
     </form>

@@ -17,15 +17,14 @@ export class MemberMessagesComponent {
 
   messageContent: string | undefined;
 
-  constructor(private messageService: MessageService) {}
+  constructor(public messageService: MessageService) {}
 
   ngOnInit() {}
 
   sendMessage() {
     this.messageService
       .sendMessage(this.username!, this.messageContent!)
-      .subscribe((message) => {
-        this.messages.push(message);
+      .then(() => {
         this.messageForm.reset();
       });
   }

@@ -1,3 +1,4 @@
 export const environment = {
-  baseUrl: 'api/',
+  baseApiUrl: 'api/',
+  baseHubUrl: 'hubs/',
 };
