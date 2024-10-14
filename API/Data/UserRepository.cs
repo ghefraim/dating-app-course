@@ -53,7 +53,9 @@ namespace API.Interfaces
 
     public async Task<AppUser> GetUserByIdAsync(int id)
     {
-      return await _context.Users.FindAsync(id);
+      return await _context.Users
+        .Include(u => u.Photos)
+        .SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<AppUser> GetUserByUsernameAsync(string username)

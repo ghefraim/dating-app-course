@@ -92,11 +92,6 @@ namespace API.Controller
         PublicId = result.PublicId
       };
 
-      if (user.Photos.Count == 0)
-      {
-        photo.IsMain = true;
-      }
-
       user.Photos.Add(photo);
 
       if (await _unitOfWork.Complete())
@@ -113,6 +108,16 @@ namespace API.Controller
       AppUser user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
       Photo photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+      if (photo == null)
+      {
+        return NotFound();
+      }
+
+      if (photo.IsApproved == false)
+      {
+        return BadRequest("You cannot set a photo as main that is not approved");
+      }
 
       if (photo.IsMain)
       {
