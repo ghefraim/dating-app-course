@@ -4,7 +4,7 @@
     ((messageService.messageThread$ | async)!.length === 0) {
     <p>No messages yet... say hi by using the message box below</p>
     } @else if ((messageService.messageThread$ | async)!.length > 0 ){
-    <ul class="chat">
+    <ul class="chat" #scrollMe style="overflow: scroll; height: 500px;" [scrollTop]="scrollMe.scrollHeight">
       @for (message of (messageService.messageThread$ | async); track $index) {
       <li>
         <div style="display: flex; justify-items: center; align-items: center">

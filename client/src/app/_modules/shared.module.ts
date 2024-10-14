@@ -11,7 +11,6 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import { RouterModule } from '@angular/router';
 import { HasRoleDirective } from '../_directives/has-role.directive';
-// import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [],
@@ -28,7 +27,6 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
     TimeagoModule,
     RouterModule,
     HasRoleDirective,
-    // ModalModule,
   ],
   exports: [
     CommonModule,
@@ -43,7 +41,6 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
     TimeagoModule,
     RouterModule,
     HasRoleDirective,
-    // ModalModule,
   ],
 })
 export class SharedModule {}

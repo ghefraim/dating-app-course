@@ -1,10 +1,16 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { Message } from '../../_models/message';
 import { MessageService } from '../../_services/message.service';
 import { SharedModule } from '../../_modules/shared.module';
 
 @Component({
   selector: 'app-member-messages',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [SharedModule],
   templateUrl: './member-messages.component.html',
